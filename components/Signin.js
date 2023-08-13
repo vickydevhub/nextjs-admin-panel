@@ -4,9 +4,11 @@ import { loginSchema } from '../schema/login'
 import { FocusError } from 'focus-formik-error';
 import { ErrorMessage } from './ErrorMessage';
 import { signIn, getCsrfToken } from 'next-auth/react';
+import { useRouter } from 'next/router';
 
 const Signin = () => {
   const [input, setInput] = useState('')
+  const router = useRouter();
 
   const formik = useFormik({
     validationSchema: loginSchema,
@@ -27,6 +29,7 @@ const Signin = () => {
           console.log("error==", res.error);
         } else {
           console.log("success==", values);
+          router.replace('/users');
         }
       } catch (err) {
          
@@ -95,7 +98,7 @@ const Signin = () => {
           </p>
           <div className="mt-6">
             <button className="w-full px-4 py-2 text-white bg-gray-800 rounded-lg hover:bg-gray-900 focus:outline-none focus:bg-gray-600">
-              Sign up
+              Login
             </button>
           </div>
         </form>
@@ -103,8 +106,8 @@ const Signin = () => {
         <p className="mt-2 text-xs text-center text-gray-700">
           {" "}
           Already a member?{" "}
-          <a href="#" className="font-medium text-gray-600 hover:underline">
-            Sign in
+          <a href="/register" className="font-medium text-gray-600 hover:underline">
+            Sign up
           </a>
         </p>
       </div>
